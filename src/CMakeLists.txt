@@ -11,7 +11,17 @@ find_package(Qt5Quick 5.1)
 
 set (qmlFiles
 	qml/main.qml
+	qml/MyLatexDocument.qml
 	qml/latex/CoffeeStains.qml
+	qml/latex/LatexEnumerate.qml
+	qml/latex/LatexGeometry.qml
+	qml/latex/LatexItem.qml
+	qml/latex/LatexLongTable.qml
+	qml/latex/LatexParagraph.qml
+	qml/latex/LatexSampleChart.qml
+	qml/latex/LatexSection.qml
+	qml/latex/LatexSubSection.qml
+	qml/latex/LatexSubSubSection.qml
 	)
 
 set (HeaderFiles

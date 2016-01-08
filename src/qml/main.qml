@@ -1,31 +1,28 @@
 import QtQuick 2.3
-import QtQuick.Controls 1.2
 
 import qmlatex.reports 1.0
 
 Item {
     width: 320
-    height: 480
+    height: 320
+
+	property var compiler: LatexCompiler {
+		document: doc
+	}
 	
-	Button {
-		id: btn
-		text: "compile";
+	MouseArea {
+		anchors.fill: parent
+		Text {
+			anchors.centerIn: parent
+			text: "click to compile latex file";
+		}
 				
 		onClicked: {
 			compiler.startCompile();
 		}
-	}
+	}	
 
-	LatexDocument {
+	MyLatexDocument {
 		id: doc
-
-		LatexCodeBlock {
-			packages: [	"[table,xcdraw]{xcolor}" ]
-			code: "hallo ich bins"
-		}
-	}
-
-	property var compiler: LatexCompiler {
-		document: doc
 	}
 }

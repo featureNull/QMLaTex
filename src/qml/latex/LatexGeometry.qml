@@ -1,5 +1,5 @@
 import QtQuick 2.3
-import lisa.reports 1.0
+import qmlatex.reports 1.0
 
 /** @brief geomtrie fuer seitenlayout
   * @sa http://www.namsu.de/Extra/pakete/Geometry.html
