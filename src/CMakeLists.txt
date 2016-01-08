@@ -26,12 +26,13 @@ set (qmlFiles
 
 set (HeaderFiles
 	ImageProvider.h
+	IQmlModelSchemaPresenter.h
 	Reports/LatexCompiler.h
 	Reports/LatexCompilerWorker.h
 	Reports/LatexDocument.h
 	Reports/LatexCodeBlock.h
 	Reports/LatexSyntaxHighLighter.h
-	#Reports/LatexModelMapper.h
+	Reports/LatexModelMapper.h
 	)
 			
 set (SourceFiles
@@ -42,7 +43,7 @@ set (SourceFiles
 	Reports/LatexDocument.cpp
 	Reports/LatexCodeBlock.cpp
 	Reports/LatexSyntaxHighLighter.cpp
-	#Reports/LatexModelMapper.cpp
+	Reports/LatexModelMapper.cpp
 	)
 
 # Tell CMake to create the executable

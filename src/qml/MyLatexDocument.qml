@@ -11,4 +11,12 @@ LatexDocument {
 	LatexCodeBlock {
 		code: "some text for the first section"
 	}
+
+	LatexSubSection {
+		title: "subsection"
+	}
+
+	LatexCodeBlock {
+		code: "some text for the first subsection"
+	}
 }

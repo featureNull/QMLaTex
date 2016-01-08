@@ -19,7 +19,7 @@ namespace Reports {
 LatexCompiler::LatexCompiler(QObject* parent)
 	: QObject(parent), logger("Latex.Compiler")
 {
-	_outPath = "C:/temp"; //TODO QDir::tempPath();
+	_outPath = QDir::tempPath();
 	_worker = new LatexCompilerWorker();
 	_compileMode = ManualCompile;
 	_doc = nullptr;
@@ -45,13 +45,13 @@ LatexCompiler::LatexCompiler(QObject* parent)
 			this, SLOT(onPdfInfoReaded(const QMap<QString, QString>&)),
 			Qt::BlockingQueuedConnection);
 
-	/*connect(_worker, SIGNAL(startCreatingPreviews()), 
+	connect(_worker, SIGNAL(startCreatingPreviews()), 
 			this,  SLOT(onStartCreatingPreviews()),
-			Qt::BlockingQueuedConnection);*/
+			Qt::BlockingQueuedConnection);
 
-	/*connect(_worker, SIGNAL(previewPageGenerated(int, const QPixmap&)), 
+	connect(_worker, SIGNAL(previewPageGenerated(int, const QPixmap&)), 
 			this,  SLOT(onPreviewPageGenerated(int, const QPixmap&)),
-			Qt::BlockingQueuedConnection);*/
+			Qt::BlockingQueuedConnection);
 
 	_timer = new QTimer(this);
 	_timer->setInterval(500);
@@ -63,7 +63,7 @@ LatexCompiler::~LatexCompiler()
 {
 	delete _worker;
 	// massives pdf image wieder loeschen
-	//ImageProvider::instance()->clearPdfPreview();
+	ImageProvider::instance()->clearPdfPreview();
 }
 
 void LatexCompiler::setDocument(LatexDocument* doc)

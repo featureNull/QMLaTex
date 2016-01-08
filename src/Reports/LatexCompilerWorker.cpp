@@ -141,6 +141,7 @@ LatexCompilerWorker::Result
 	QElapsedTimer dbgTimer;
 	dbgTimer.start();
 
+	qCInfo(logger) << "working path: " << outPath;
 	qCInfo(logger) << "compile file:" << file;
 	const char* exefile = "pdflatex.exe";
 
