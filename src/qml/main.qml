@@ -12,12 +12,16 @@ import "styles"
 
 Item {
 	id: self
-    width: 1000
+    width: 1200
     height: 700
 
 	property alias orientation: paperFormat.currentValue
 	property alias paperSize: cbxPaperSize.currentValue
 	property var model: null
+
+    MyLatexDocument {
+        id: doc
+    }
 	
 	LatexDocument {
 		id: latte
@@ -69,10 +73,10 @@ Item {
 		LatexCodeBlock {
 			code: 'ein supertolles taxi rast durch muenchen'
 		}
-	}
+    }
 
 	property var compiler: LatexCompiler {
-		document: latte
+        document: doc //latte
 		
 		compileMode: {
 			if (btnManualCompile.checked)

@@ -6,7 +6,9 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
 # Find the Qt5Quick library
-find_package(Qt5Quick 5.1)
+find_package(Qt5Quick)
+find_package(Qt5Sql)
+find_package(Qt5Widgets)
 
 
 set (qmlFiles
@@ -27,6 +29,7 @@ set (qmlFiles
 set (HeaderFiles
 	ImageProvider.h
 	IQmlModelSchemaPresenter.h
+	SqlQueryModel.h
 	Reports/LatexCompiler.h
 	Reports/LatexCompilerWorker.h
 	Reports/LatexDocument.h
@@ -38,6 +41,7 @@ set (HeaderFiles
 set (SourceFiles
 	main.cpp
 	ImageProvider.cpp
+	SqlQueryModel.cpp
 	Reports/LatexCompiler.cpp
 	Reports/LatexCompilerWorker.cpp
 	Reports/LatexDocument.cpp
@@ -50,7 +54,7 @@ set (SourceFiles
 add_executable(qmlatex ${SourceFiles} ${HeaderFiles} ${qmlFiles})
 
 # Use the Quick module from Qt 5.
-target_link_libraries(qmlatex Qt5::Quick)
+target_link_libraries(qmlatex Qt5::Quick Qt5::Sql Qt5::Widgets)
 
 source_group("Reports" REGULAR_EXPRESSION "Reports/.*")
 source_group("qml" REGULAR_EXPRESSION "qml/.*")

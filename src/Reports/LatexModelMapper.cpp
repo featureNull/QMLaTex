@@ -126,7 +126,7 @@ QString LatexModelMapper::createSingleRow(const QList<int>& roles, int row) cons
 	presi = dynamic_cast<IQmlModelSchemaPresenter*>(_model);
 
 	foreach (int role, roles) {
-		if (presi != nullptr) {
+		if (presi == nullptr) {
 			// schema presenter nicht implementiert
 			QString curstr = _model->data(modelinx, role).toString();
 			list << escape(curstr);

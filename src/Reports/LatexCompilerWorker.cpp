@@ -119,13 +119,15 @@ void LatexCompilerWorker::build(const QString& outPath, const QString& code)
 
 	// tex kompilieren
 	if (compileFile(outPath, TEX_FILENAME) != SuperXiVollGeil) {
-		emitError(tr("cannot compile tex file"), _pdfLatexErrorText);
+		QString str = tr("cannot compile tex file");
+		emitError(str, _pdfLatexErrorText);
 		return;
 	}
 
 	// dem pdf info entlocken (hauptsaechlich seitenanzahl)
 	if (queryPdfInfo(outPath, PDF_FILENAME) != SuperXiVollGeil) {
-		emitError(tr("cannot read pdf info"));
+		QString str = tr("cannot compile tex file");
+		emitError(str);
 		return;
 	}
 	else {
