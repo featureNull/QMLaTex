@@ -1,16 +1,13 @@
 import QtQuick 2.3
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 1.2
-import "controls"
-import "fontawesome.js" as FontAwesome
 
 
 /**
- * @brief preview fuer ein pdf dolukument
- * @details es wird immer nur eine Seite angezeigt. 
- * Das Item hostet zwei buttons fuer naechste und 
- * vorhergehende Seite. PdfPreview heftet sich an LatexCompiler und 
- * tut alle signale selbst behandeln
+ * @brief preview for a pdf docuument
+ * @details One page is shown.
+ * There are 2 buttons for next and previous page.
+ * Pdf Preview handles all latex compiler signals.
  */
 Rectangle {
 	property QtObject compiler
@@ -27,13 +24,13 @@ Rectangle {
 
 	property int currentPage: 1
 	
-	/// @brief am anfang des sokuments gehen
+    /// @brief move to the document begin
 	function moveToBegin() {
 		console.log("PdfPreview.moveToBegin");
 		currentPage = 1;
 	}
 
-	/// @brief zum ende springen
+    /// @brief mode to the document end
 	function moveToEnd() {
 		console.log("PdfPreview.moveToEnd");
 		currentPage = numOfPages;
@@ -44,18 +41,16 @@ Rectangle {
 	//
 	id: self
 	
-	RoundButton {
+    Button {
 		id: nextPage
 		anchors.top: parent.top
 		anchors.right: parent.right
 		anchors.topMargin: 20
 		anchors.rightMargin: 40
 		z: 1
-		visible: numOfPages > 1
-				
-		fontAwesomeIconTextSchmarn: {
-			return FontAwesome.Icon.step_forward;
-		}
+        text: "Next Page"
+        visible: numOfPages > 1
+        enabled: currentPage < numOfPages
 		
 		onClicked: {
 			console.log("currentPage", currentPage, 
@@ -66,17 +61,15 @@ Rectangle {
 		}
 	}
 
-	RoundButton {
+    Button {
 		id: previousPage
 		anchors.top: parent.top
 		anchors.topMargin: 20
 		anchors.right: nextPage.left
 		z: 1
-		visible: numOfPages > 1
-				
-		fontAwesomeIconTextSchmarn: {
-			return FontAwesome.Icon.step_backward;
-		}
+        text: "Prev Page"
+        visible: numOfPages > 1
+        enabled: currentPage > 1
 
 		onClicked: {
 			if (currentPage > 1)
@@ -114,12 +107,7 @@ Rectangle {
 			
 			fillMode: Image.PreserveAspectFit
 			cache: false
-			source: "../res/png/close.png"
-			// gibt das schoenste ergebnis (SMS wird da sicher sagen 
-			// das ist nicht gut. man muss das anders machen, man versteht das nicht. 
-			// Ohne drop shadow versteht man nicht was gemeint ist. 
-			// Das will der user nicht so. Man muss eine studie machen
-			// wie zufrieden die Kunden sind, ....)
+            source: "../res/png/close.png"
 			mipmap: false
 			smooth: true
 			

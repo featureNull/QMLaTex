@@ -31,4 +31,28 @@ LatexDocument {
     LatexChart {
         model: dataTable
     }
+    LatexSubSection {
+        title: "The LatexTable Item"
+    }
+
+    LatexTable {
+        model: dataTable
+    }
+
+    LatexSubSection {
+        title: "The LatexTable Item"
+    }
+
+    LatexTable {
+        model: dataTable
+    }
+
+    LatexSubSection {
+        title: "The LatexTable Item"
+    }
+
+    LatexTable {
+        model: dataTable
+    }
+
 }

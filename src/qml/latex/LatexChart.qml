@@ -1,7 +1,11 @@
 import QtQuick 2.3
+
 import qmlatex.reports 1.0
 
-/* first column in model is the x axis others are printed as y axis*/
+/**
+ * @brief print a chart from model
+ * @details first column in model is the x axis others are printed as y axis
+**/
 LatexCodeBlock {
     id: self
     property var model
