@@ -5,9 +5,8 @@
 
 
 /**
- * @brief Interface fuer das man vom ui dynamisch das modell mit den rollen
- * abfragen kann
- * @note brauchen tuts das zB fuer den csv export
+ * @brief Interface for dynamic role access in data models
+ * @note currently not used
  */
 class IQmlModelSchemaPresenter
 {
@@ -16,15 +15,15 @@ public:
 	IQmlModelSchemaPresenter() {}
 	virtual ~IQmlModelSchemaPresenter() {}
 
-	/** @brief RoleNummern ausfsteigend sortiert */
+	/** @brief RoleNumber sorted ascending */
 	virtual QList<int> roleNums() const = 0;
 
-	/** @brief sw interner name einer rolle */
+	/** @brief sw internal name of a role */
 	virtual QString roleName(int role) const = 0;
 
-	/** @brief human readable text fuer den header */
+	/** @brief human readable text for the header */
 	virtual QString roleTitleName(int role) const = 0;
 
-	/** @brief formatierter text mit nachkommastellen etc.. */
+	/** @brief formated text with e.g. postion after decimal point etc.. */
 	virtual QString formatedData(const QModelIndex& index, int role) const  = 0;
 };

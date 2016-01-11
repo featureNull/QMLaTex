@@ -13,44 +13,46 @@ namespace Reports {
 class LatexCompilerWorker;
 
 /**
- * @brief bedient den latex Compiler
- * @details Motivation ist es, aus dynamischen Datenseatzen ein .tex file zu generieren
- * und auf diesem Weg zu einem Druckbaren dokument zu kommen. 
+ * @brief Starts the latex Compiler
+ * @details Motivation is to generate from dynamic data a .tex file
+	and generate a pdf document. 
  *
- * Als distribution wurde unter Windows die Miktex Distribution verwendet.
- * <h3>Konzept</h3>
- * mittels \code pdflatex.exe \endcode wird aus quellcode ein Pdf erstellt \n
- * mit \code pdfinfo.exe \endcode wird dem pdf anschliesend information entlockt \n
- * mit \code pdftoppm.exe \endcode wird dem pdf anschliesend information entlockt \n
- * das Preview fuer Qml wird mit jpg images bereitgestellt 
- * @note LatexBackend aufgrund von temporaeren Dateien nicht multithread save, sowie 
- * auch nicht save wenn LatexBackend oefter als einaml instanziert wird 
- * @note die eigentliche arbeit macht asynchron LatexCompilerWorker
+ * The software is tested under windows with MikTex distribution.
+ * <h3>Concept</h3>
+ * with \code pdflatex.exe \endcode a pdf document is generated from source code \n
+ * with \code pdfinfo.exe \endcode pdf information is retrieved \n
+ * with \code pdftoppm.exe \endcode to generate a jpg image from pdf \n
+ * The preview for QML is provided as jpg image 
+ * @note LatexBackend because of temporary files not multithread save. It is 
+ * also not save if LatexBackend is instanciated more than once
+ * @note the actuall work is done by LatexCompilerWorker
  *
- * @attention unter linux wird das wahrscheinlich nicht funtionieren
+ * @attention it is not tested under linux and may fail to run
  * @sa http://miktex.org/download
  */
 class LatexCompiler : public QObject
 {
 	Q_OBJECT
 
+	/* the document to compile */
 	Q_PROPERTY(Reports::LatexDocument* document READ document WRITE setDocument NOTIFY documentChanged)
 
-	/** soll der compiler von sich aus neu bauen, wenn sich das dokument aendert,  oder manuell */
+	/** should the compiler run automatically if the document is chaned or manually */
 	Q_PROPERTY(CompileMode compileMode READ compileMode WRITE setCompileMode NOTIFY compileModeChanged)
 
-	/** wartezeit bis compiler gestartet wird, nachdem sich das dokument geaendert hat [msecs]
-	  * @note nur relevant bei compileMode AutoCompile 
+	
+	/** time to start compiler, after document change [msecs]
+	  * @note only for autocompile mode
 	  */
 	Q_PROPERTY(int compileLatency READ compileLatency WRITE setCompileLatency NOTIFY compileLatencyChanged)
 
-	/** anzahl der seiten nach compiilieren */
+	/** number of pages after compilation */
 	Q_PROPERTY(int numOfPages READ numOfPages NOTIFY buildTerminated)
 
-	/** datei groesse in bytes */
+	/** file size in bytes */
 	Q_PROPERTY(int fileSize READ fileSize NOTIFY buildTerminated)
 
-	/** vollsteandigkeit halber die pdf version */
+	/** the pdf version */
 	Q_PROPERTY(QString pdfVersion READ pdfVersion NOTIFY buildTerminated)
 
 	Q_PROPERTY(bool busy READ isBusy NOTIFY busyChanged)
@@ -62,8 +64,8 @@ public:
 	 * build automatic new when something changed 
 	 */
 	enum CompileMode {
-		ManualCompile,	///< compilieren mit manuellen trigger \code compile \endcode
-		AutoCompile		///< compilieren immer wenn sich das doc aendert 
+		ManualCompile,	///< compile with manual trigger \code compile \endcode
+		AutoCompile		///< compile if doc is chaned
 	};
 	Q_ENUM(CompileMode);
 
@@ -90,24 +92,22 @@ public slots:
 	void startCompile();
 
 signals:
-	/** build lauft */
-	void buildStarted();
+	/** build is runnning **/
+	void buildStarted();		
 
-	/** build wurde ohne fehler durchgefuehrt 
-	  * @param preview sind die vorschau images (der namespace ist notwendig ueber threads)
-	  */
+	/** build without errors **/
 	void buildSuccess();
 
-	/** build hat einen errror getan */
+	/** build with some errors */
 	void buildError(const QString& errorText, const QString& detailedText);
 
-	/** build wurde mit oder ohne fehler fertig */
+	/** build finished without errors */
 	void buildTerminated();
 
-	/** wird emmitiert, wenn die previews neu erstellt werden */
+	/** is emmited if the preview is generated*/
 	void startCreatingPreviews();
 
-	/** emittiert eine liste von vorschau images, [seitennnummer], Pixmap */
+	/** emits the preview image, [pagenumber], Pixmap */
 	void previewPageGenerated(int page);
 
 	// property notifiers 

@@ -14,7 +14,7 @@ LatexCodeBlock {
 	//
 	id: self
 	
-	/// @todo center, links und rechts einbauen
+    /// @todo center, left and right
 
 	code: {
 		if (plainText) {

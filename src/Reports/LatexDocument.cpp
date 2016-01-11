@@ -18,7 +18,6 @@ LatexDocument::~LatexDocument()
 {
 }
 
-/** eines von den code dinern hinzufuegen */
 void LatexDocument::append(LatexCodeBlock* block)
 {
 

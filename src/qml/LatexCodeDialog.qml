@@ -8,8 +8,8 @@ import QtQuick.Layouts 1.2
 import qmlatex.reports 1.0
 
 Dialog {
-	/// @brief ist \c true, wenn es latex syntax sein soll, 
-	/// bei plaintext false
+    /// @brief is \c true, if latex syntax,
+    /// with plaintext it is false
 	property bool plainText: {
 		return __syntaxMode != LatexSyntaxHighLighter.LatexSyntax
 	}
@@ -18,7 +18,7 @@ Dialog {
 		console.log("syntaxMode = ", __syntaxMode, "plainText=", plainText);
 	}
 	
-	/// @brief latex code, bzw plain text
+    /// @brief latex code, rep plain text
 	property alias code: textEdit.text
 	
 	//
@@ -32,7 +32,7 @@ Dialog {
 	
 
 	contentItem: Rectangle {
-		// rechteck hintergrund (ist irgendwie scheisse)
+        // background (does not look good)
 		color: "#ededed"
 		
 		ColumnLayout {
@@ -74,7 +74,7 @@ Dialog {
 			}
 
 			//
-			// buttons ok und cancel
+            // buttons ok and cancel
 			//
 			RowLayout {
 				Layout.fillWidth: true

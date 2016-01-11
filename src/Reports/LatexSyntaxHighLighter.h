@@ -13,14 +13,14 @@ class QQuickTextDocument;
 namespace Reports {
 
 /**
- * @brief sehr sher simpler syntax highlighter fuer latex
+ * @brief very simple syntax highlighter for latex
  */
 class LatexSyntaxHighLighter : public QSyntaxHighlighter
 {
     Q_OBJECT
 
 	/** text dokument, must be type of 	QQuickTextDocument
-	  * @note getter und setter clashen mit basisklasse 
+	  * @note getter and setter clashes with baseclass
 	  */
 	Q_PROPERTY(QObject* quickTextDocument READ quickTextDocument
 			   WRITE setQuickTextDocument NOTIFY quickTextDocumentChanged)
@@ -30,7 +30,7 @@ class LatexSyntaxHighLighter : public QSyntaxHighlighter
 
 public:
 	/**
-	 * @brief highligting mode 
+	 * @brief highlighting mode 
 	 */
 	enum SyntaxMode {
 		LatexSyntax,		///< latex code
@@ -40,7 +40,7 @@ public:
 
 public:
 
-    // mysterioeses verhalten in qml (bug in QSyntaxHighlighter constructore parent darf nicht null sein)
+    // strange behavier in qml (bug in QSyntaxHighlighter constructor, parent have to be not null)
 	LatexSyntaxHighLighter();
 	
 	void setQuickTextDocument(QObject*);
@@ -56,7 +56,7 @@ signals:
 protected:
     void highlightBlock(const QString &text) override;
 
-	/** liest aus einer datei line by line woerter */
+	/** reads from a file words line by line */
 	static QStringList readKeyWordsFromTextFile(const QString& fname);
 
 private:

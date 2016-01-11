@@ -9,8 +9,8 @@
 
 
 /**
- * @brief provided old style qpixmap dinger in qml
- * @details ist singletone fuer die ganze anwednung
+ * @brief provide pdf preview for QML
+ * @details this is singelton for the whole application
  */
 class ImageProvider : public QQuickImageProvider
 {
@@ -20,7 +20,7 @@ public:
 	
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
 	
-	/** pdf Vorschau [page, pixmap] */
+	/** pdf preview [page, pixmap] */
 	void setPdfPreview(int page, const QPixmap& pixi);
 	void clearPdfPreview();
 	
@@ -30,7 +30,7 @@ public:
 private:
 	QPixmap requestPdfPreview(QSize *size, const QSize &requestedSize);
 
-	/// @todo hier koennt man document name eingeben
+	/// @todo here the name could be set
 	QPixmap requestPdfPreview(int pageNum, QSize *size, const QSize &requestedSize);
 
 	QLoggingCategory logger;

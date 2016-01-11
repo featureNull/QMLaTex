@@ -46,10 +46,11 @@ LatexCodeBlock {
 
     function generateSinglePlotCode(xRole, yRole){
         var enabled = [xRole, yRole];
+        //@TODO this creates loop error solve it!!
         mapper.enabledRoles = enabled;
         var tmpCode =
         '		\\addplot coordinates {' + '\r\n' +
-        childCode +
+        mapper.code +
         '		};' + '\r\n' +
         '		\\addlegendentry{' + self.model.roleTitleName(yRole) + '}' + '\r\n';
         return tmpCode;

@@ -55,20 +55,20 @@ void LatexCompilerWorker::run()
 		if (terminate)
 			break;
 
-		// note das ist nicht der main thread
+		// note this is not the main thread
 		emit buildStarted();
 		build(outPath, code);
 		emit buildTerminated();
 
 		if (errorPresent()) {
-			// beginn von neuem wenn fahler da sind
+			// start again if error exists
 			continue;
 		}
 
-		// previews erstellen (sehr teuer)
+		// previews creation (expensive)
 		emit startCreatingPreviews();
 
-		// previw jpegs bauen
+		// preview jpegs generation
 		const int numOfPages = _pdfInfo["Pages"].toInt();
 		for (int ii = 1; ii <=  numOfPages; ii++) {
 			QPixmap pix = createPreviewPage(outPath, PDF_FILENAME, ii);
@@ -117,14 +117,14 @@ void LatexCompilerWorker::build(const QString& outPath, const QString& code)
 	out << code;
 	file.close();
 
-	// tex kompilieren
+	// tex compile
 	if (compileFile(outPath, TEX_FILENAME) != SuperXiVollGeil) {
 		QString str = tr("cannot compile tex file");
 		emitError(str, _pdfLatexErrorText);
 		return;
 	}
 
-	// dem pdf info entlocken (hauptsaechlich seitenanzahl)
+	// get pdf info (mainly used for page number )
 	if (queryPdfInfo(outPath, PDF_FILENAME) != SuperXiVollGeil) {
 		QString str = tr("cannot compile tex file");
 		emitError(str);
@@ -161,7 +161,7 @@ LatexCompilerWorker::Result
 		// note that error is stdout
 		QString txt = QString::fromLatin1(process.readAllStandardOutput());
 
-		// letzten zeilen selecten
+		// select last lines
 		int index = txt.length();
 		int l = txt.length();
 
@@ -169,7 +169,7 @@ LatexCompilerWorker::Result
 			int curinx = txt.lastIndexOf('\n', index - txt.length() - 1);
 
 			if (curinx == -1)
-				break;	// nicht so wahrscheinlich
+				break;	// not so likely
 			
 			index = curinx;
 		}

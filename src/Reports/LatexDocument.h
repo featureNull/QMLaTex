@@ -14,28 +14,27 @@ namespace Reports {
 
 
 /**
- * @brief bildet ein latex tex file ab
+ * @brief reprensents a  latex tex file
  */
 class LatexDocument : public QObject
 {
 	Q_OBJECT
 
-	/** einzelne code bloecke (default property) */
+	/** single code blocks (default property) */
 	Q_PROPERTY(QQmlListProperty<Reports::LatexCodeBlock> blocks READ blocks)
 	Q_CLASSINFO("DefaultProperty", "blocks")
 
 	Q_PROPERTY(QQmlListProperty<Reports::LatexCodeBlock> preamble READ preamble)
 
-	/** font groesse in pts */
+	/** font size in pts */
 	Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged)
 
-	/** hoch oder querformat */
+	/** prtrait or ladnscape */
 	Q_PROPERTY(Orientation orientation READ orientation WRITE setOrientation NOTIFY orientationChanged)
 
-	/** blatt groesse */
+	/** page size */
 	Q_PROPERTY(PaperSize paperSize READ paperSize WRITE setPaperSize NOTIFY paperSizeChanged)
 
-	/// url tauglicher doc name (keine leer oder sonderzeichen)
 	//Q_PROPERTY(QString docName READ docName WRITE setDocName NOTIFY docNameChanged)
 
 public:
@@ -55,14 +54,14 @@ public:
 	explicit LatexDocument(QObject* parent = NULL);
 	~LatexDocument();
 
-	/** eines von den code dinern hinzufuegen */
+	/** append code */
 	Q_INVOKABLE void append(Reports::LatexCodeBlock* block);
 	Q_INVOKABLE void clear();
 
-	/** code blocks zwischen \\begin{document} und \\end{document} */
+	/** code blocks between \\begin{document} and \\end{document} */
 	QQmlListProperty<LatexCodeBlock> blocks();
 
-	/** code blocks zwischen \\d\\begin{document} und \\end{document} */
+	/** code blocks between \\d\\begin{document} and \\end{document} */
 	QQmlListProperty<LatexCodeBlock> preamble();
 
 	void setFontSize(int value);
@@ -74,7 +73,7 @@ public:
 	void setPaperSize(PaperSize ps);
 	PaperSize paperSize() const;
 
-	/** qbrief latex quellcode fuer das gesamte dokument */
+	/** brief latex quellcode for the whole document */
 	QString code() const;
 
 signals:
@@ -83,7 +82,7 @@ signals:
 	void orientationChanged();
 	void paperSizeChanged();
 
-	/** das dolument hat sich in irgeneiner form geaendert */
+	/** the document has changed in some form */
 	void codeChanged();
 private:
 	QString documentclassCode() const;

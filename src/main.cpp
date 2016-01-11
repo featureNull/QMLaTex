@@ -17,7 +17,7 @@
 
 
 /** 
- * registriert alle Klassen, die wo man in Qml instanzieren will
+ * register all Classes which should be instanciated in QML
  */
 static void registerQmlTypes() {
 	qmlRegisterType<Reports::LatexDocument>("qmlatex.reports", 1, 0, "LatexDocument");

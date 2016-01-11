@@ -12,41 +12,40 @@
 namespace Reports {
 
 /**
- * @brief Mapped ein Qt TableModel auf latex code zu ueberfuehren
+ * @brief Mapped a Qt TableModel to latex code
  */
 class LatexModelMapper : public LatexCodeBlock
 {
 	Q_OBJECT
 	
-	/** daten model, aus denen die werte gelesen werden
-	  * @note idealerweise sollte dieses Modell auch IQmlSchemaPresenter implementieren 
+	/** data model where data is read
+	  * @note this model can implement IQmlModelSchemaPresenter
 	  */
 	Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel NOTIFY modelChanged)
 
-	/** rollen die man sehen will, bei einer leeren liste werden alle roles angezeigt */
+	/** roles which should be shown, if listed is empty all roles are shown */
 	Q_PROPERTY(QList<int> enabledRoles READ enabledRoles WRITE setEnabledRoles NOTIFY enabledRolesChanged)
 
-	/** trenner zwischen columns default \c &. */
+	/** seperator between columns \c &. */
 	Q_PROPERTY(QString seperator READ seperator WRITE setSeperator NOTIFY seperatorChanged)
 
-	/** string vor einem Datensatz, default: nix */
+	/** string before data line, default: nothing */
 	Q_PROPERTY(QString rowStartMark READ rowStartMark WRITE setRowStartMark NOTIFY rowStartMarkChanged)
 	
-	/** string am ende eines Datensatzes, deafult: "\\\\\r\n" */
+	/** string at end of data line, default: "\\\\\r\n" */
 	Q_PROPERTY(QString rowEndMark READ rowEndMark WRITE setRowEndMark NOTIFY rowEndMarkChanged)
 
 public:
 	explicit LatexModelMapper(QObject* parent = NULL);
 	~LatexModelMapper();
 		
-	/** daten model, aus denen die werte gelesen werden, muss vom type QAbstractTableModel sein */
+	/** data model from which data is read, have to be of type QAbstractTableModel */
 	void setModel(QAbstractItemModel* model);
 	QAbstractItemModel* model() const;
 
 	void setEnabledRoles(const QList<int>& list);
 	QList<int> enabledRoles() const;
 	
-	/** trenner zwischen columns default \c &. */
 	void setSeperator(const QString& value);
 	QString seperator() const;
 

@@ -14,7 +14,7 @@
 namespace Reports {
 
 /**
- * @brief workerthread der den compiler bedient
+ * @brief workerthread which is used by the compiler
  * @sa Reports::LatexCompiler
  */
 class LatexCompilerWorker : public QThread
@@ -25,41 +25,39 @@ public:
 	explicit LatexCompilerWorker(QObject *parent = nullptr);
 	~LatexCompilerWorker();
 
-	/** einen build anstassen */
+	/** run a build */
 	void startBuild(const QString& outPath, const QString& code);
 	
 signals:
-	/** build lauft */
+	/** build is runnning */
 	void buildStarted();
 
-	/** build wurde ohne fehler durchgefuehrt 
-	  * @param preview sind die vorschau images (der namespace ist notwendig ueber threads)
+	/** build without errors 
 	  */
 	void buildSuccess();
 
-	/** build hat einen errror getan */
+	/** build with some errors */
 	void buildError(const QString& title, const QString& details);
 
-	/** build wurde mit oder ohne fehler fertig */
+	/** build finished without errors */
 	void buildTerminated();
 
-	/** emittiert info ueber das dok */
+	/** emit information about the document */
 	void pdfInfoReaded(const QMap<QString, QString>& textmap);
 
-	/** wird emmitiert, wenn die previews neu erstellt werden */
+	/** is emmited if the preview is generated*/
 	void startCreatingPreviews();
 
-	/** emittiert eine liste von vorschau images, [seitennnummer], Pixmap */
+	/** emits the preview image, [pagenumber], Pixmap */
 	void previewPageGenerated(int page, const QPixmap& pixmap);
 
 private:
 	/** 
-	  * schwyzerischer error. In respect to Mr Hirzel sind fehler hier positiv, 
-	  * obwohl ein fehler wirklich etwas negatives ist
+	  * @TODO make the error codes englih
 	  */
 	enum Result {
-		SuperXiVollGeil,	///< mit freude verkuenden, eine Srechpause zwische SuperXi und VollGeil
-		DasIstScheisse,		///< mit gesenktem Kopf zusammendhaengend auszusprechen
+		SuperXiVollGeil,	///< everything well
+		DasIstScheisse,		///< not so well
 		DasGibtEsNicht,
 		ZeitUeberschreitung,
 		DasDuerftIhrNichtAendern
@@ -87,12 +85,12 @@ private:
 
 	QMutex _mutex;
 	QWaitCondition _waitCond;
-	// daten die wo ueber mutex geschuetzt werden sollten
+	// data which is mutex protected
 	QString _currentCode;
 	QString _currentOutPath;
 	bool _terminate;
 
-	// worker status mebers
+	// worker status members
 	QString _lastErrorText;
 	QString _pdfLatexErrorText;
 	QMap<QString, QString> _pdfInfo;

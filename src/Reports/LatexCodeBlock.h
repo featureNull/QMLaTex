@@ -10,30 +10,29 @@ namespace Reports {
 class Document;
 
 /**
- * @brief Basis klasse fuer latex code
- * @details reprsaentiert einen code snipsel in latex. Zu verwnden mit 
+ * @brief Baseclass for latex code
+ * @details represents a code snipped in latex
  */
 class LatexCodeBlock : public QObject
 {
 	Q_OBJECT
 
-	/** einzelne code bloecke (default property) */
+	/** single code blocks (default property) */
 	Q_PROPERTY(QQmlListProperty<Reports::LatexCodeBlock> childs READ childs)
 	Q_CLASSINFO("DefaultProperty", "childs")
 
-	/** soll der code tatsaechlich eine ausgabe produzieren */
+	/** should the code actually produce an output */
 	Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled NOTIFY enabledChanged)
 
-	/** was wird dazu gebraucht in der form \code [option]{package} \endcode */
+	/** what packages are needed? Has the form \code [option]{package} \endcode */
 	Q_PROPERTY(QStringList packages READ packages WRITE setPackages NOTIFY packagesChanged)
 
-	/** latex quellcode von diesem LatexCodeBlock
+	/** latex source code of this LatexCodeBlock
 	  * @sa childCode
 	  */
 	Q_PROPERTY(QString code READ code WRITE setCode NOTIFY codeChanged)
 
-	/** code der kinder der user muss sich selbst drum kuemmern. childCode ist nicht in code
-	  * eingewebt
+	/** Code of children. The Use have to insert the childCode own its own to the parent code
 	  */
 	Q_PROPERTY(QString childCode READ childCode NOTIFY childChanged)
 
@@ -52,7 +51,7 @@ public:
 	void setPackages(const QStringList& list);
 	QStringList packages() const;
 
-	/** @brief latex quellcode  */
+	/** @brief latex source code  */
 	void setCode(const QString &code);
 	QString code() const;
 
@@ -61,7 +60,7 @@ public:
 	/** */
 	QQmlListProperty<LatexCodeBlock> childs();
 
-	/** internal use packeges von dieem und von den kindern */
+	/** internal use packages from this object and from childs*/
 	QStringList packegesWithChilds() const;
 
 signals:
@@ -69,10 +68,10 @@ signals:
 	void codeChanged();
 	void packagesChanged();
 
-	// wird immer emitiert, wenn irgendwas im code sich aendert
+	// is always emitted if anything is changed
 	void changed();
 
-	// wird emittiert, wenn sich ein kind aendert
+	// is emmited if a child is changed
 	void childChanged();
 
 private:
