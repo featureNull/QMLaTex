@@ -31,28 +31,14 @@ LatexDocument {
     LatexChart {
         model: dataTable
     }
-    LatexSubSection {
-        title: "The LatexTable Item"
-    }
-
-    LatexTable {
-        model: dataTable
+    LatexCodeBlock {
+        code: "\\newpage"
     }
 
     LatexSubSection {
-        title: "The LatexTable Item"
+        title: "The new page"
     }
 
-    LatexTable {
-        model: dataTable
-    }
 
-    LatexSubSection {
-        title: "The LatexTable Item"
-    }
-
-    LatexTable {
-        model: dataTable
-    }
 
 }

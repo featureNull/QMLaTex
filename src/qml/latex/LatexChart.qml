@@ -3,14 +3,14 @@ import QtQuick 2.3
 import qmlatex.reports 1.0
 
 /**
- * @brief print a chart from model
+ * @brief prints a chart from model
  * @details first column in model is the x axis others are printed as y axis
 **/
 LatexCodeBlock {
     id: self
     property var model
 
-	packages: [	"{pgfplots}" ]
+    packages: [	"{pgfplots}" ]
 	
     code: '	\\begin{tikzpicture}' + '\r\n' +
           generatePlotCode() +
@@ -50,9 +50,9 @@ LatexCodeBlock {
         mapper.enabledRoles = enabled;
         var tmpCode =
         '		\\addplot coordinates {' + '\r\n' +
-        mapper.code +
+        self.childCode +
         '		};' + '\r\n' +
         '		\\addlegendentry{' + self.model.roleTitleName(yRole) + '}' + '\r\n';
-        return tmpCode;
+         return tmpCode;
     }
 }

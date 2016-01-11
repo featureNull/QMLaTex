@@ -33,7 +33,7 @@ QStringList LatexCodeBlock::packages() const
 	return _packages;
 }
 
-/** @brief latex quellcode  */
+/** @brief latex source code  */
 void LatexCodeBlock::setCode(const QString &code)
 {
 	_code = code;
