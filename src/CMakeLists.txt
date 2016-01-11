@@ -15,6 +15,7 @@ set (qmlFiles
 	qml/main.qml
 	qml/MyLatexDocument.qml
 	qml/latex/CoffeeStains.qml
+	qml/latex/LatexChart.qml
 	qml/latex/LatexEnumerate.qml
 	qml/latex/LatexGeometry.qml
 	qml/latex/LatexItem.qml

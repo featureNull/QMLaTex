@@ -9,7 +9,9 @@ SqlQueryModel::SqlQueryModel(QObject *parent) :
 
 QList<int> SqlQueryModel::roleNums()
 {
-	return roleNames().keys();
+	QList<int>list = roleNames().keys();
+	qSort(list.begin(), list.end());
+	return list;
 }
 
 QString SqlQueryModel::roleTitleName(int key)

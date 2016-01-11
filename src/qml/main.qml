@@ -75,7 +75,7 @@ Item {
 		}
     }
 
-	property var compiler: LatexCompiler {
+    property var compiler: LatexCompiler {
         document: doc //latte
 		
 		compileMode: {

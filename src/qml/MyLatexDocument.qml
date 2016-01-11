@@ -6,34 +6,29 @@ import "latex"
 
 LatexDocument {
 	LatexSection {
-		title: "Section"
+        title: "QMLaTex Document Example"
 	}
 
 	LatexCodeBlock {
-		code: "some text for the first section"
+        code: 'This example demonstrates QMLaTex features. Simple code blocks are shown. ' +
+        'Further more complex data is shown in a table and a charts to demonstrate the ' +
+        ' interaction between Qt\'s C++ data model and QML.'
 	}
 
-	LatexSubSection {
-        title: "Employee Table"
-	}
-
+	
+    LatexSubSection {
+        title: "The LatexTable Item"
+    }
+	
     LatexTable {
-        model: employeeTable
-	}
+        model: dataTable
+    }
 
     LatexSubSection {
-        title: "Company Table"
+        title: "The LatexChart Item"
     }
 
-    LatexTable {
-        model: companyTable
-    }
-
-    LatexSection {
-        title: "Sample Chart"
-    }
-
-    LatexSampleChart {
-
+    LatexChart {
+        model: dataTable
     }
 }

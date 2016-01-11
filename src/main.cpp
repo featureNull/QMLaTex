@@ -43,12 +43,17 @@ int main(int argc, char **argv)
 	db.setDatabaseName("../../QMLaTex/test.db");
 	SqlQueryModel emp;
 	SqlQueryModel comp;
+	SqlQueryModel dataTable;
 	if (db.open()) {
 		emp.setQuery("SELECT * FROM Employee");
 		view.rootContext()->setContextProperty("employeeTable", &emp);
 
 		comp.setQuery("SELECT * FROM Company");
 		view.rootContext()->setContextProperty("companyTable", &comp);
+
+		dataTable.setQuery("SELECT * FROM DataTable");
+		view.rootContext()->setContextProperty("dataTable", &dataTable);
+
 	} else {
 		qDebug() << "cannot open database " << db.databaseName();
 	}
@@ -56,7 +61,6 @@ int main(int argc, char **argv)
     view.setSource(QUrl("../../QMLatex/src/qml/main.qml"));
 
     view.show();
-
 
     return app.exec();
 }
