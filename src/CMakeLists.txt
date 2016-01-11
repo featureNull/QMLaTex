@@ -14,6 +14,9 @@ find_package(Qt5Widgets)
 set (qmlFiles
 	qml/main.qml
 	qml/MyLatexDocument.qml
+	qml/LatexCodeDialog.qml
+	qml/MyLatexDocument.qml
+	qml/PdfPreview.qml
 	qml/latex/CoffeeStains.qml
 	qml/latex/LatexChart.qml
 	qml/latex/LatexEnumerate.qml
@@ -25,6 +28,9 @@ set (qmlFiles
 	qml/latex/LatexSection.qml
 	qml/latex/LatexSubSection.qml
 	qml/latex/LatexSubSubSection.qml
+	qml/latex/LatexTable.qml
+	qml/latex/LatexTableLine.qml
+	qml/latex/LatexTwoColumns.qml
 	)
 
 set (HeaderFiles
