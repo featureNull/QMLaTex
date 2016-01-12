@@ -3,56 +3,23 @@ import QtQuick 2.3
 import qmlatex.reports 1.0
 
 /**
- * @brief prints a chart from model
- * @details first column in model is the x axis others are printed as y axis
+* @brief prints a chart from model
+* @details role numbers are defined in table starting at 257 for first row
 **/
 LatexCodeBlock {
-    id: self
-    property var model
+	id: self
+	property var model
+	property int xRole
 
-    packages: [	"{pgfplots}" ]
-	
-    code: '	\\begin{tikzpicture}' + '\r\n' +
-          generatePlotCode() +
-          '	\\end{tikzpicture}'
+	packages: [	"{pgfplots}" ]
 
-    LatexModelMapper {
-        id: mapper
-        model: self.model
-        seperator: ","
-        rowStartMark: "("
-        rowEndMark: ")\n"
-    }
+	code: '\\begin{tikzpicture}' + '\r\n' +
+		  '	\\begin{axis}[' + '\r\n' +
+		  '		grid=major,' + '\r\n' +
+		  '		xlabel = ' + self.model.roleTitleName(xRole) +
+		  '		]' + '\n' +
+		  childCode +
+		  '\\end{axis}' + '\r\n' +
+		  '	\\end{tikzpicture}'
 
-    function generatePlotCode() {
-        var roleNums = self.model.roleNums();
-
-        // first role is the xRole
-        var xRole = roleNums.shift();
-        var xName = self.model.roleTitleName(xRole);
-
-        var tmpCode =
-        '		\\begin{axis}[' + '\r\n' +
-        '			grid=major,' + '\r\n' +
-        '         xlabel = ' + xName +
-        '		]' + '\r\n' +
-        '\r\n';
-        for (var i in roleNums) {
-            tmpCode += generateSinglePlotCode(xRole, roleNums[i]);
-        }
-        tmpCode += '\\end{axis}' + '\r\n';
-        return tmpCode;
-    }
-
-    function generateSinglePlotCode(xRole, yRole){
-        var enabled = [xRole, yRole];
-        //@TODO this creates loop error solve it!!
-        mapper.enabledRoles = enabled;
-        var tmpCode =
-        '		\\addplot coordinates {' + '\r\n' +
-        self.childCode +
-        '		};' + '\r\n' +
-        '		\\addlegendentry{' + self.model.roleTitleName(yRole) + '}' + '\r\n';
-         return tmpCode;
-    }
 }

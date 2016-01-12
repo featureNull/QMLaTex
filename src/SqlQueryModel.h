@@ -12,6 +12,8 @@ public:
 	explicit SqlQueryModel(QObject *parent = 0);
 
 	/** @brief Get a List of user role numbers **/
+	Q_INVOKABLE int roleNum(QString colName);
+	/** @brief Get a List of user role numbers **/
 	Q_INVOKABLE QList<int> roleNums();
 	/** @brief Get the name for a speciefied role number **/
 	Q_INVOKABLE QString roleTitleName(int key);
@@ -28,4 +30,5 @@ public:
 private:
 	void generateRoleNames();
 	QHash<int, QByteArray> m_roleNames;
+	QHash<QString, int> m_nameRoles;
 };

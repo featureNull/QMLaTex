@@ -7,7 +7,12 @@ SqlQueryModel::SqlQueryModel(QObject *parent) :
 {
 }
 
-QList<int> SqlQueryModel::roleNums()
+int SqlQueryModel::roleNum(QString colName)
+{
+	return m_nameRoles[colName];
+}
+
+	QList<int> SqlQueryModel::roleNums()
 {
 	QList<int>list = roleNames().keys();
 	qSort(list.begin(), list.end());
@@ -34,8 +39,10 @@ void SqlQueryModel::setQuery(const QSqlQuery & query)
 void SqlQueryModel::generateRoleNames()
 {
 	m_roleNames.clear();
+	m_nameRoles.clear();
 	for( int i = 0; i < record().count(); i ++) {
 		m_roleNames.insert(Qt::UserRole + i + 1, record().fieldName(i).toUtf8());
+		m_nameRoles.insert(record().fieldName(i), Qt::UserRole + i + 1);
 	}
 }
 
