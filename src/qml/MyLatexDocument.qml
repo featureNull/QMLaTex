@@ -6,6 +6,9 @@ import "latex"
 
 LatexDocument {
 	docName: "MyLatexDocument"
+
+	packages: [	"[ansinew]{inputenc}" ]
+
 	LatexSection {
 		title: "QMLaTex Document Example"
 	}

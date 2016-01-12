@@ -25,6 +25,9 @@ class LatexDocument : public QObject
 	Q_CLASSINFO("DefaultProperty", "blocks")
 
 	Q_PROPERTY(QQmlListProperty<Reports::LatexCodeBlock> preamble READ preamble)
+	
+	/** what packages are needed? Has the form \code [option]{package} \endcode */
+	Q_PROPERTY(QStringList packages READ packages WRITE setPackages NOTIFY packagesChanged)
 
 	/** font size in pts */
 	Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged)
@@ -64,6 +67,9 @@ public:
 
 	/** code blocks between \\d\\begin{document} and \\end{document} */
 	QQmlListProperty<LatexCodeBlock> preamble();
+	
+	void setPackages(const QStringList& list);
+	QStringList packages() const;
 
 	void setFontSize(int value);
 	int fontSize() const;
@@ -82,6 +88,7 @@ public:
 
 signals:
 	void titleChanged();
+	void packagesChanged();
 	void fontSizeChanged();
 	void orientationChanged();
 	void paperSizeChanged();
@@ -109,6 +116,8 @@ private:
 	Orientation _orientation;
 	PaperSize _paperSize;
 	QString _docName;
+	QStringList _packages;
+
 	QList<LatexCodeBlock*> _blocks;
 	QList<LatexCodeBlock*> _preamble;
 };

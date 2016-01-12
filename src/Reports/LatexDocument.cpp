@@ -36,6 +36,10 @@ QString LatexDocument::code() const
 
 	lcs << lf << documentclassCode();
 
+	foreach (QString cur, _packages) {
+		lcs << lf << "\\usepackage" << cur;
+	}
+
 	foreach (QString cur, usedPackages()) {
 		lcs << lf << "\\usepackage" << cur;
 	}
@@ -69,6 +73,19 @@ QQmlListProperty<LatexCodeBlock> LatexDocument::preamble()
 {
 	return QQmlListProperty<LatexCodeBlock>(this, 0,  
 		&appendPreamble, &preambleCount,&preambleAt, &preambleClear);
+}
+
+void LatexDocument::setPackages(const QStringList& list)
+{
+	_packages = list;
+	emit codeChanged();
+	emit packagesChanged();
+
+}
+
+QStringList LatexDocument::packages() const
+{
+	return _packages;
 }
 
 void LatexDocument::setFontSize(int value)
