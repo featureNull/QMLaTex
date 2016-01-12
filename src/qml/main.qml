@@ -19,6 +19,7 @@ Item {
     MyLatexDocument {
         id: doc
 		orientation: self.orientation
+		coffee: cbCoffee.checked
     }
 
     property var compiler: LatexCompiler {
@@ -71,6 +72,11 @@ Item {
 						ListElement { text: "Landscape"; value: LatexDocument.Landscape }
 					}
 				}
+			}
+
+			CheckBox {
+				id: cbCoffee
+				text: "Coffee"
 			}
 
 			Item {

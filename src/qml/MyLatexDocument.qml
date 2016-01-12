@@ -6,6 +6,7 @@ import "latex"
 
 LatexDocument {
 	docName: "MyLatexDocument"
+	property alias coffee: coffee.enabled
 
 	packages: [	"[ansinew]{inputenc}" ]
 
@@ -19,6 +20,10 @@ LatexDocument {
 			  ' interaction between Qt\'s C++ data model and QML.'
 	}
 
+	CoffeeStains {
+		id: coffee
+		enabled:false
+	}
 	
 	LatexSubSection {
 		title: "The LatexTable Item"
