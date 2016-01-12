@@ -7,10 +7,10 @@ import "latex"
 LatexDocument {
 	docName: "MyLatexDocument"
 	property alias coffee: coffee.enabled
+	property alias chart: chart.enabled
 
 	packages: [
-		"{pgfplots}" //used in LatexChart
-	]
+	]	// empty package list per default add at runtime
 
 	LatexSection {
 		title: "QMLaTex Document Example"
@@ -35,8 +35,43 @@ LatexDocument {
 		enabled:false
 	}
 
+	LatexSection {
+		title: "Work with Qt's DataModel"
+	}
+
 	LatexSubSection {
-		title: "A Enumeration"
+		title: "The LatexTable Item"
+	}
+	
+	LatexTable {
+		model: dataTable
+	}
+
+	LatexSubSection {
+		title: "The LatexChart Item"
+	}
+
+	LatexChart {
+		id: chart
+		enabled: false;
+		model: dataTable
+		xRole: dataTable.roleNum("Measure")
+
+		LatexChartSeries {
+			model: dataTable
+			xRole: dataTable.roleNum("Measure")
+			yRole: dataTable.roleNum("Samples1")
+		}
+
+		LatexChartSeries {
+			model: dataTable
+			xRole: dataTable.roleNum("Measure")
+			yRole: dataTable.roleNum("Samples2")
+		}
+	}
+
+	LatexSection {
+		title: "Enumerations"
 	}
 
 	LatexEnumerate {
@@ -58,39 +93,7 @@ LatexDocument {
 			LatexCodeBlock { code: 'The last item.' }
 		}
 	}
-	
-	LatexSection {
-		title: "Work with Qt's DataModel"
-	}
 
-	LatexSubSection {
-		title: "The LatexTable Item"
-	}
-	
-	LatexTable {
-		model: dataTable
-	}
-
-	LatexSubSection {
-		title: "The LatexChart Item"
-	}
-
-	LatexChart {
-		model: dataTable
-		xRole: dataTable.roleNum("Measure")
-
-		LatexChartSeries {
-			model: dataTable
-			xRole: dataTable.roleNum("Measure")
-			yRole: dataTable.roleNum("Samples1")
-		}
-
-		LatexChartSeries {
-			model: dataTable
-			xRole: dataTable.roleNum("Measure")
-			yRole: dataTable.roleNum("Samples2")
-		}
-	}
 	LatexCodeBlock {
 		code: "\\newpage"
 	}

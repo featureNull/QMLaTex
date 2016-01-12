@@ -98,7 +98,6 @@ signals:
 	void codeChanged();
 private:
 	QString documentclassCode() const;
-	QStringList usedPackages() const;
 
 	// stuff around qmllistproperty
 	static void appendBlock(QQmlListProperty<LatexCodeBlock> *list, LatexCodeBlock*block);

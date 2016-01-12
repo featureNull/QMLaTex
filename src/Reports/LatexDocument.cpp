@@ -40,10 +40,6 @@ QString LatexDocument::code() const
 		lcs << lf << "\\usepackage" << cur;
 	}
 
-	foreach (QString cur, usedPackages()) {
-		lcs << lf << "\\usepackage" << cur;
-	}
-
 	foreach(LatexCodeBlock* cur, _preamble) {
 		if (cur->isEnabled()) {
 			lcs << lf << cur->code() << lf;
@@ -147,37 +143,6 @@ QString LatexDocument::documentclassCode() const
 	QString ret;
 
 	ret = QString("\\documentclass[%1,%2pt,%3]{article}") .arg(ps) .arg(_fontSize) .arg(o);
-	return ret;
-}
-
-QStringList LatexDocument::usedPackages() const
-{
-	QStringList ret;
-
-	foreach(LatexCodeBlock* cur, _preamble) {
-		QStringList packages = cur->packegesWithChilds();
-
-		foreach (QString cur,  packages) {
-			QString trimmed = cur.simplified();
-
-			if (!ret.contains(trimmed)) {
-				ret << trimmed;
-			}
-		} // foreach package
-	}// foreach LatexCodeBlock
-
-	foreach(LatexCodeBlock* cur, _blocks) {
-		QStringList packages = cur->packegesWithChilds();
-
-		foreach (QString cur,  packages) {
-			QString trimmed = cur.simplified();
-
-			if (!ret.contains(trimmed)) {
-				ret << trimmed;
-			}
-		} // foreach package
-	}// foreach LatexCodeBlock
-
 	return ret;
 }
 

@@ -21,18 +21,6 @@ bool LatexCodeBlock::isEnabled() const
 	return _isEnabled;
 }
 
-void LatexCodeBlock::setPackages(const QStringList& list)
-{
-	_packages = list;
-	emit changed();
-	emit packagesChanged();
-}
-
-QStringList LatexCodeBlock::packages() const
-{
-	return _packages;
-}
-
 /** @brief latex source code  */
 void LatexCodeBlock::setCode(const QString &code)
 {
@@ -73,19 +61,6 @@ QString LatexCodeBlock::childCode() const
 
 		ts << "\r\n";
 		ts << cur->code();
-	}
-
-	return ret;
-}
-
-QStringList LatexCodeBlock::packegesWithChilds() const
-{
-	QStringList ret;
-
-	ret << _packages;
-
-	foreach(LatexCodeBlock* c, _childs) {
-		ret << c->packegesWithChilds();
 	}
 
 	return ret;

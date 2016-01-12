@@ -11,8 +11,6 @@ LatexCodeBlock {
 	property var model
 	property int xRole
 
-	packages: [	"{pgfplots}" ]
-
 	code: '\\begin{tikzpicture}' + '\r\n' +
 		  '	\\begin{axis}[' + '\r\n' +
 		  '		grid=major,' + '\r\n' +

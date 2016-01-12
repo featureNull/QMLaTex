@@ -15,11 +15,21 @@ Item {
     height: 950
 
 	property alias orientation: cbOrientation.currentValue
+/*
+	LatexDocument {
+		id: doc;
+
+		LatexSection{
+			title: "test"
+		}
+	}*/
 
     MyLatexDocument {
-        id: doc
+		id: doc
 		orientation: self.orientation
 		coffee: cbCoffee.checked
+		chart: cbChart.checked
+
     }
 
     property var compiler: LatexCompiler {
@@ -76,7 +86,23 @@ Item {
 
 			CheckBox {
 				id: cbCoffee
-				text: "Coffee"
+				text: "Coffee (need coffee4 package installed,\n" +
+					  " compile twice to see changes)"
+				onCheckedChanged: {
+					if (doc.packages.indexOf("{coffee4}") < 0)
+						if (checked)
+							doc.packages.push("{coffee4}");
+				}
+			}
+
+			CheckBox {
+				id: cbChart
+				text: "Charts (need pgfplots package installed)"
+				onCheckedChanged: {
+					if (doc.packages.indexOf("{pgfplots}") < 0)
+						if (checked)
+							doc.packages.push("{pgfplots}");
+				}
 			}
 
 			Item {

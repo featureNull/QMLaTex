@@ -25,7 +25,7 @@ class LatexCodeBlock : public QObject
 	Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled NOTIFY enabledChanged)
 
 	/** what packages are needed? Has the form \code [option]{package} \endcode */
-	Q_PROPERTY(QStringList packages READ packages WRITE setPackages NOTIFY packagesChanged)
+	//Q_PROPERTY(QStringList packages READ packages WRITE setPackages NOTIFY packagesChanged)
 
 	/** latex source code of this LatexCodeBlock
 	  * @sa childCode
@@ -60,9 +60,6 @@ public:
 	/** */
 	QQmlListProperty<LatexCodeBlock> childs();
 
-	/** internal use packages from this object and from childs*/
-	QStringList packegesWithChilds() const;
-
 signals:
 	void enabledChanged();
 	void codeChanged();
@@ -83,7 +80,6 @@ private:
 
 	QString _code;
 	bool _isEnabled;
-	QStringList _packages;
 	QList<LatexCodeBlock*> _childs;
 };
 
