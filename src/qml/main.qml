@@ -14,8 +14,11 @@ Item {
     width: 1100
     height: 950
 
+    property alias orientation: cbOrientation.currentValue
+
     MyLatexDocument {
         id: doc
+        orientation: self.orientation
     }
 
     property var compiler: LatexCompiler {
@@ -48,10 +51,34 @@ Item {
                 }
             }
 
-			Item {
-				Layout.fillHeight: true
-			}
-		} // columnlayout
+            Row {
+                spacing: 10
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "Orientation"
+                }
+
+                ComboBox {
+                    implicitWidth: 80
+                    id: cbOrientation
+                    property var currentValue: {
+                        return orientationModel.get(currentIndex).value;
+                    }
+
+                    model: ListModel {
+                        id: orientationModel
+                        ListElement { text: "Portrait"; value: LatexDocument.Portrait }
+                        ListElement { text: "Landscape"; value: LatexDocument.Landscape }
+                    }
+                }
+            }
+
+
+
+            Item {
+                Layout.fillHeight: true
+            }
+        } // columnlayout
 
 		PdfPreview {
 			id: preview
