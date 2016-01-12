@@ -58,7 +58,7 @@ QString LatexCodeBlock::escape(const QString& code) const
 	ret.replace(QStringLiteral("$"), QStringLiteral("\\$"));
 	ret.replace(QStringLiteral("#"), QStringLiteral("\\#"));
 	ret.replace(QStringLiteral("_"), QStringLiteral("\\_"));
-	
+
 	return ret;
 }
 

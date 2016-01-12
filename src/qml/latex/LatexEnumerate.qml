@@ -5,6 +5,6 @@ LatexCodeBlock {
 	code: {
 		return "\\begin{enumerate}"
 			+ childCode 
-			+ "\\end{enumerate}";
+			+ "\n\\end{enumerate}";
 	}
 }

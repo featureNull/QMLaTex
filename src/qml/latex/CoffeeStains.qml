@@ -3,5 +3,5 @@ import qmlatex.reports 1.0
 
 LatexCodeBlock {
 	packages: [	"{coffee4}" ]
-	code: "\\cofeAm{1}{1}{0}{0}{0}"
+	code: "\\cofeAm {0.2}{1}{0}{200}{30}"
 }

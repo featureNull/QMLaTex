@@ -8,7 +8,9 @@ LatexDocument {
 	docName: "MyLatexDocument"
 	property alias coffee: coffee.enabled
 
-	packages: [	"[ansinew]{inputenc}" ]
+	packages: [
+		"{pgfplots}" //used in LatexChart
+	]
 
 	LatexSection {
 		title: "QMLaTex Document Example"
@@ -20,11 +22,47 @@ LatexDocument {
 			  ' interaction between Qt\'s C++ data model and QML.'
 	}
 
+	LatexParagraph {
+		title: "A new Paragraph"
+	}
+
+	LatexCodeBlock {
+		code: 'is beginning here'
+	}
+
 	CoffeeStains {
 		id: coffee
 		enabled:false
 	}
+
+	LatexSubSection {
+		title: "A Enumeration"
+	}
+
+	LatexEnumerate {
+		LatexItem {
+			LatexCodeBlock { code: 'The first line.' }
+		}
+		LatexItem {
+			LatexCodeBlock { code: 'The second line.' }
+			LatexEnumerate {
+				LatexItem {
+					LatexCodeBlock {code: "Subitem 1"}
+				}
+				LatexItem {
+					LatexCodeBlock {code: "Subitem 2" }
+				}
+			}
+		}
+		LatexItem {
+			LatexCodeBlock { code: 'The last item.' }
+		}
+	}
 	
+	LatexSection {
+		title: "Work with Qt's DataModel"
+	}
+
 	LatexSubSection {
 		title: "The LatexTable Item"
 	}
