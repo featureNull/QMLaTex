@@ -6,10 +6,6 @@
 #include <QElapsedTimer>
 #include <QPixmap>
 
-#define TEX_FILENAME		"report.tex"
-#define PDF_FILENAME		"report.pdf"
-#define PDFINFO_FILENAME	"report.pdfinfo"
-
 #define PDFLATEX_TIMEOUT	10000
 
 namespace Reports {
@@ -33,11 +29,12 @@ LatexCompilerWorker::~LatexCompilerWorker()
 	}
 }
 
-void LatexCompilerWorker::startBuild(const QString& outPath, const QString& code)
+void LatexCompilerWorker::startBuild(const QString& outPath, const QString& code, const QString& docName)
 {
 	_mutex.lock();
 	_currentCode = code;
 	_currentOutPath = outPath;
+	_docName = docName;
 	_mutex.unlock();
 
 	_waitCond.wakeAll();
@@ -48,16 +45,18 @@ void LatexCompilerWorker::run()
 	forever {
 		QString code;
 		QString outPath;
+		QString docName;
 		bool terminate;
 
-		pollNext(&outPath, &code, &terminate);
+
+		pollNext(&outPath, &code, &docName, &terminate);
 
 		if (terminate)
 			break;
 
 		// note this is not the main thread
 		emit buildStarted();
-		build(outPath, code);
+		build(outPath, code, docName);
 		emit buildTerminated();
 
 		if (errorPresent()) {
@@ -71,7 +70,7 @@ void LatexCompilerWorker::run()
 		// preview jpegs generation
 		const int numOfPages = _pdfInfo["Pages"].toInt();
 		for (int ii = 1; ii <=  numOfPages; ii++) {
-			QPixmap pix = createPreviewPage(outPath, PDF_FILENAME, ii);
+			QPixmap pix = createPreviewPage(outPath, docName + ".pdf", ii);
 			emit previewPageGenerated(ii, pix);
 
 			if (commandPending())
@@ -80,7 +79,7 @@ void LatexCompilerWorker::run()
 	} // forever
 }
 
-void LatexCompilerWorker::pollNext(QString* outPath, QString* code, bool* terminate)
+void LatexCompilerWorker::pollNext(QString* outPath, QString* code, QString* docName, bool* terminate)
 {
 	Q_ASSERT(outPath != nullptr);
 	Q_ASSERT(code != nullptr);
@@ -94,6 +93,7 @@ void LatexCompilerWorker::pollNext(QString* outPath, QString* code, bool* termin
 
 	(*outPath) = _currentOutPath;
 	(*code) = _currentCode;
+	(*docName) = _docName;
 	(*terminate) = _terminate;
 
 	_lastErrorText.clear();
@@ -104,28 +104,28 @@ void LatexCompilerWorker::pollNext(QString* outPath, QString* code, bool* termin
 }
 
 
-void LatexCompilerWorker::build(const QString& outPath, const QString& code)
+void LatexCompilerWorker::build(const QString& outPath, const QString& code, const QString& docName)
 {
 	QElapsedTimer dbgTimer;
 	dbgTimer.start();
 
 	qCDebug(logger) << "build" << code;
 
-	QFile file(outPath + "/" + TEX_FILENAME);
+	QFile file(outPath + "/" + docName + ".tex");
 	file.open(QIODevice::WriteOnly);
 	QTextStream out(&file);   // we will serialize the data into the file
 	out << code;
 	file.close();
 
 	// tex compile
-	if (compileFile(outPath, TEX_FILENAME) != SuperXiVollGeil) {
+	if (compileFile(outPath, docName + ".tex") != SuperXiVollGeil) {
 		QString str = tr("cannot compile tex file");
 		emitError(str, _pdfLatexErrorText);
 		return;
 	}
 
 	// get pdf info (mainly used for page number )
-	if (queryPdfInfo(outPath, PDF_FILENAME) != SuperXiVollGeil) {
+	if (queryPdfInfo(outPath, docName + ".pdf") != SuperXiVollGeil) {
 		QString str = tr("cannot compile tex file");
 		emitError(str);
 		return;

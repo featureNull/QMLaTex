@@ -35,7 +35,8 @@ class LatexDocument : public QObject
 	/** page size */
 	Q_PROPERTY(PaperSize paperSize READ paperSize WRITE setPaperSize NOTIFY paperSizeChanged)
 
-	//Q_PROPERTY(QString docName READ docName WRITE setDocName NOTIFY docNameChanged)
+	/** name of the document */
+	Q_PROPERTY(QString docName READ docName WRITE setDocName NOTIFY docNameChanged)
 
 public:
 	enum Orientation {
@@ -72,6 +73,9 @@ public:
 
 	void setPaperSize(PaperSize ps);
 	PaperSize paperSize() const;
+	
+	void setDocName(QString docName);
+	QString docName() const;
 
 	/** brief latex quellcode for the whole document */
 	QString code() const;
@@ -81,6 +85,7 @@ signals:
 	void fontSizeChanged();
 	void orientationChanged();
 	void paperSizeChanged();
+	void docNameChanged();
 
 	/** the document has changed in some form */
 	void codeChanged();
@@ -103,6 +108,7 @@ private:
 	int _fontSize;
 	Orientation _orientation;
 	PaperSize _paperSize;
+	QString _docName;
 	QList<LatexCodeBlock*> _blocks;
 	QList<LatexCodeBlock*> _preamble;
 };

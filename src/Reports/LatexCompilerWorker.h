@@ -26,7 +26,7 @@ public:
 	~LatexCompilerWorker();
 
 	/** run a build */
-	void startBuild(const QString& outPath, const QString& code);
+	void startBuild(const QString& outPath, const QString& code, const QString& docName);
 	
 signals:
 	/** build is runnning */
@@ -65,9 +65,9 @@ private:
 
 protected:
 	virtual void run() override;
-	void pollNext(QString* outPath, QString* code, bool* terminate);
+	void pollNext(QString* outPath, QString* code, QString* DocName, bool* terminate);
 
-	void build(const QString& outPath, const QString& code);
+	void build(const QString& outPath, const QString& code, const QString& docName);
 	Result compileFile(const QString& outPath, const QString& file);
 	Result queryPdfInfo(const QString& outPath, const QString& file);
 	
@@ -88,6 +88,7 @@ private:
 	// data which is mutex protected
 	QString _currentCode;
 	QString _currentOutPath;
+	QString  _docName;
 	bool _terminate;
 
 	// worker status members

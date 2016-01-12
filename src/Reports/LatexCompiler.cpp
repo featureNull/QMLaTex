@@ -9,11 +9,6 @@
 #include <QElapsedTimer>
 #include <QPixmap>
 
-
-#define TEX_FILENAME		"report.tex"
-#define PDF_FILENAME		"report.pdf"
-#define PDFINFO_FILENAME	"report.pdfinfo"
-
 namespace Reports {
 
 LatexCompiler::LatexCompiler(QObject* parent)
@@ -178,7 +173,7 @@ void LatexCompiler::onPreviewPageGenerated(int page, const QPixmap& pixi)
 
 void LatexCompiler::startCompile()
 {
-	_worker->startBuild(_outPath, _doc->code());
+	_worker->startBuild(_outPath, _doc->code(), _doc->docName());
 }
 
 void LatexCompiler::onPdfInfoReaded(const QMap<QString, QString>& textmap)

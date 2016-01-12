@@ -5,6 +5,7 @@ import qmlatex.reports 1.0
 import "latex"
 
 LatexDocument {
+	docName: "MyLatexDocument"
 	LatexSection {
 		title: "QMLaTex Document Example"
 	}
@@ -34,13 +35,13 @@ LatexDocument {
 
 		LatexChartSeries {
 			model: dataTable
-			xRole: parent.xRole
+			xRole: dataTable.roleNum("Measure")
 			yRole: dataTable.roleNum("Samples1")
 		}
 
 		LatexChartSeries {
 			model: dataTable
-			xRole: parent.xRole
+			xRole: dataTable.roleNum("Measure")
 			yRole: dataTable.roleNum("Samples2")
 		}
 	}

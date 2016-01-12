@@ -12,6 +12,7 @@ LatexDocument::LatexDocument(QObject* parent)
 	_fontSize = 12;
 	_orientation = Portrait;
 	_paperSize = A4;
+	_docName = "report";
 }
 
 LatexDocument::~LatexDocument()
@@ -107,6 +108,20 @@ LatexDocument::PaperSize LatexDocument::paperSize() const
 	return _paperSize;
 }
 
+
+void LatexDocument::setDocName(QString docName)
+{
+	if (docName == "") {
+		return;
+	}
+	_docName = docName;
+	emit docNameChanged();
+}
+
+QString LatexDocument::docName() const
+{
+	return _docName;
+}
 
 QString LatexDocument::documentclassCode() const
 {
