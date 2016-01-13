@@ -145,7 +145,7 @@ LatexCompilerWorker::Result
 
 	qCInfo(logger) << "working path: " << outPath;
 	qCInfo(logger) << "compile file:" << file;
-	const char* exefile = "pdflatex.exe";
+	const char* exefile = "pdflatex";
 
 	QStringList args;
 	args << "-halt-on-error" << file;
@@ -193,7 +193,7 @@ LatexCompilerWorker::Result
 
 	qCInfo(logger) << "request pdf info:" << file;
 
-	const char* exefile = "pdfinfo.exe";
+	const char* exefile = "pdfinfo";
 
 	QStringList args;
 	args << file;
@@ -236,7 +236,7 @@ QPixmap LatexCompilerWorker::createPreviewPage(const QString& outPath, const QSt
 
 	qCInfo(logger) << "create preview image:" << pdfFile << ", pageNum=" << pageNum;
 
-	const char* exefile = "pdftoppm.exe";
+	const char* exefile = "pdftoppm";
 
 	QString args;
 	args = QString("-f %1 -singlefile %2 ") .arg(pageNum) .arg(pdfFile);
