@@ -1,5 +1,5 @@
 # QMLaTex
-QML Wrapper for creating Latex Documents
+QML Wrapper for creating Latex Documents 
 
 QMLaTex provides an interface for writing structured documents in QML which is compiled to LaTex code for generating PDF documents. The following Example generates a LaTex(Pdf) files which can be found in `doc/SimpleDocument.tex(pdf)`.
 
