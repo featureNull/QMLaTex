@@ -64,10 +64,10 @@ QML Items are provided via C++ interface and are exposed to the QML context. See
   - `LatexCodeBlock` - The document is build up by a set of (nested) LaTex code blocks
   - `LatexModelMapper` - An Item for generating data out of Qt models
   - `LatexCompiler` - A utility item for generating LaTex Documents 
-  - `LatexSyntaxHighlighter` - A utility item for LaTex synthax highlighting (currently not used in the examples)
+  - `LatexSyntaxHighlighter` - A utility item for LaTex syntax highlighting (currently not used in the examples)
 
 #### QML Convenience Items
-The folder [src/qml/latex] [PlDb] contains defined convenience items for reuse. 
+The folder `src/qml/latex` contains defined convenience items for reuse. 
 
   - `LatexSection` - Defines a section
   - `LatexSubSection` - Defines a subsection
