@@ -137,6 +137,31 @@ bool LatexCompiler::isBusy() const
 	return _isBusy;
 }
 
+void LatexCompiler::setOutPath(QString outPath)
+{
+	bool exists = false;
+	QString local = "";
+
+	//not NICE support url encoding and native file path
+	//is a local path
+	if (QDir(outPath).exists()) {
+		local = outPath;
+		exists = true;
+	}
+	else {
+		//or is a url
+		QUrl url (outPath);
+		local = QUrl(outPath).toLocalFile();
+		if (local != "" && QDir(local).exists()) {
+				exists = true;
+		}
+	}
+	if (!exists) return;
+
+	_outPath = local;
+	emit outPathChanged();
+}
+
 QString LatexCompiler::outPath() const
 {
 	return _outPath;

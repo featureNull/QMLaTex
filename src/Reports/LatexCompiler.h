@@ -57,7 +57,11 @@ class LatexCompiler : public QObject
 
 	Q_PROPERTY(bool busy READ isBusy NOTIFY busyChanged)
 
-	Q_PROPERTY(QString outPath READ outPath CONSTANT)
+	/** @brief set the output path for the document 
+	  * @ details the string can be url encoded or the
+	  *	filename with slashes /(backslash need to be escaped \\)
+	  **/
+	Q_PROPERTY(QString outPath READ outPath WRITE setOutPath NOTIFY outPathChanged)
 
 public:
 	/** 
@@ -86,7 +90,10 @@ public:
 	int fileSize()  const;
 	QString pdfVersion() const;
 	bool isBusy() const;
+	
+	void setOutPath (QString outPath);
 	QString outPath() const;
+
 
 public slots:
 	void startCompile();
@@ -109,6 +116,9 @@ signals:
 
 	/** emits the preview image, [pagenumber], Pixmap */
 	void previewPageGenerated(int page);
+
+	/** emits when the path is changed **/
+	void outPathChanged();
 
 	// property notifiers 
 	void documentChanged();

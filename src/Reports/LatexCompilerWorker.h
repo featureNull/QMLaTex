@@ -50,7 +50,7 @@ signals:
 
 	/** emits the preview image, [pagenumber], Pixmap */
 	void previewPageGenerated(int page, const QPixmap& pixmap);
-
+	
 private:
 	/** 
 	  * @TODO make the error codes englih

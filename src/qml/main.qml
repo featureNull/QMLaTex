@@ -24,8 +24,12 @@ Item {
 		}
 	}*/
 
-    MyLatexDocument {
-		id: doc
+	SimpleDoucument {
+		id: simpleDoc
+	}
+
+	DataDocument {
+		id: dataDoc
 		orientation: self.orientation
 		coffee: cbCoffee.checked
 		chart: cbChart.checked
@@ -33,8 +37,8 @@ Item {
     }
 
     property var compiler: LatexCompiler {
-        document: doc //latte
-		
+		document: simpleDoc //latte
+
 		onBuildError: {
 			messageDialog.text = errorText;
 			messageDialog.detailedText = detailedText;
@@ -56,9 +60,20 @@ Item {
 
 		ColumnLayout {
 			Button {
-				text:"Compile MyLatexDocument"
+				text:"Compile Document"
 				onClicked: {
 					compiler.startCompile();
+				}
+			}
+
+			Text {
+				text: compiler.outPath + "/" + compiler.document.docName + ".tex"
+			}
+
+			Button {
+				text: "Change Output Path"
+				onClicked: {
+					dlgOutPath.open();
 				}
 			}
 
@@ -117,4 +132,12 @@ Item {
 			compiler: self.compiler
 		}
     } // RowLayout
+
+	FileDialog {
+		id: dlgOutPath
+		selectFolder: true
+		onAccepted: {
+			compiler.outPath = folder;
+		}
+	}
 }
