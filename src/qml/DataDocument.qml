@@ -27,7 +27,7 @@ LatexDocument {
 	}
 
 	LatexCodeBlock {
-		code: 'is beginning here'
+		code: escLatex('is beginning here with escaped text signs: & \\ ^ ~ % $ # _')
 	}
 
 	CoffeeStains {

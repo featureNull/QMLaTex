@@ -1,5 +1,6 @@
 #include "LatexCodeBlock.h"
 #include <QTextStream>
+#include <QDebug>
 
 namespace Reports {
 
@@ -34,7 +35,7 @@ QString LatexCodeBlock::code() const
 	return _code;
 }
 
-QString LatexCodeBlock::escape(const QString& code) const
+QString LatexCodeBlock::escLatex(const QString& code) const
 {
 	QString ret = code;
 	ret.replace(QStringLiteral("\\"), QStringLiteral("\\textbackslash"));

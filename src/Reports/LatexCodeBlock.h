@@ -43,7 +43,7 @@ public:
 	  * used with latex, and returns the escaped string
 	  * @sa http://tex.stackexchange.com/questions/34580/escape-character-in-latex
 	  */
-	Q_INVOKABLE QString escape(const QString& code) const;
+	Q_INVOKABLE QString escLatex(const QString& code) const;
 
 	void setEnabled(bool);
 	bool isEnabled() const;

@@ -129,13 +129,13 @@ QString LatexModelMapper::createSingleRow(const QList<int>& roles, int row) cons
 		if (presi == nullptr) {
 			// schema presenter nicht implementiert
 			QString curstr = _model->data(modelinx, role).toString();
-			list << escape(curstr);
+			list << escLatex(curstr);
 		}
 		else {
 			// standard schema presenter implementiert. Dann kann man auch 
 			// das kunststueck mit den kommastallen machen
 			QString curstr = presi->formatedData(modelinx, role);
-			list << escape(curstr);
+			list << escLatex(curstr);
 		}
 	}
 
