@@ -5,12 +5,12 @@ import qmlatex.reports 1.0
 import "latex"
 
 LatexDocument {
-	docName: "MyLatexDocument"
-	property alias coffee: coffee.enabled
-	property alias chart: chart.enabled
+	docName: "DataDocument"
+	property alias coffeeEnabled: coffee.enabled
 
 	packages: [
-	]	// empty package list per default add at runtime
+		"{pgfplots}"
+	]
 
 	LatexSection {
 		title: "QMLaTex Document Example"
@@ -53,7 +53,6 @@ LatexDocument {
 
 	LatexChart {
 		id: chart
-		enabled: false;
 		model: dataTable
 		xRole: dataTable.roleNum("Measure")
 

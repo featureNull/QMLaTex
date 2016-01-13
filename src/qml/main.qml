@@ -15,14 +15,6 @@ Item {
     height: 950
 
 	property alias orientation: cbOrientation.currentValue
-/*
-	LatexDocument {
-		id: doc;
-
-		LatexSection{
-			title: "test"
-		}
-	}*/
 
 	SimpleDoucument {
 		id: simpleDoc
@@ -31,9 +23,6 @@ Item {
 	DataDocument {
 		id: dataDoc
 		orientation: self.orientation
-		coffee: cbCoffee.checked
-		chart: cbChart.checked
-
     }
 
     property var compiler: LatexCompiler {
@@ -58,7 +47,33 @@ Item {
 		anchors.margins: 10
 		spacing: 10
 
-		ColumnLayout {
+		Column {
+			spacing: 10
+			anchors.top : parent.top
+			width: 200
+			Row {
+				spacing: 10
+				Text {
+					anchors.verticalCenter: parent.verticalCenter
+					text: "Select"
+				}
+
+				ComboBox {
+					implicitWidth: 120
+					id: cbDocument
+					model: ["SimpleDocument", "DataDocument"]
+					onCurrentIndexChanged: {
+						if (currentIndex == 0) {
+							compiler.document = simpleDoc;
+							txtHelp.text = txtHelp.help[0];
+						} else {
+							compiler.document = dataDoc;
+							txtHelp.text = txtHelp.help[1];
+						}
+					}
+				}
+			}
+
 			Button {
 				text:"Compile Document"
 				onClicked: {
@@ -67,7 +82,9 @@ Item {
 			}
 
 			Text {
+				width: parent.width
 				text: compiler.outPath + "/" + compiler.document.docName + ".tex"
+				wrapMode: Text.WrapAnywhere
 			}
 
 			Button {
@@ -101,27 +118,29 @@ Item {
 
 			CheckBox {
 				id: cbCoffee
-				text: "Coffee (need coffee4 package installed,\n" +
-					  " compile twice to see changes)"
+				visible: cbDocument.currentIndex == 1;
+				text: "Coffee Stain"
 				onCheckedChanged: {
-					if (doc.packages.indexOf("{coffee4}") < 0)
-						if (checked)
-							doc.packages.push("{coffee4}");
+					//add package to list
+					if (dataDoc.packages.indexOf("{coffee4}") < 0 && checked)
+						dataDoc.packages.push("{coffee4}");
+					dataDoc.coffeeEnabled = checked;
 				}
 			}
 
-			CheckBox {
-				id: cbChart
-				text: "Charts (need pgfplots package installed)"
-				onCheckedChanged: {
-					if (doc.packages.indexOf("{pgfplots}") < 0)
-						if (checked)
-							doc.packages.push("{pgfplots}");
-				}
-			}
+			Text {
+				id:txtHelp
+				width: parent.width
+				wrapMode: Text.WordWrap
+				property var help: [
+					"This is a simple Latex document.",
 
-			Item {
-				Layout.fillHeight: true
+					"In this document data is retrievied from C++ models."+
+					"Your Latex installation need to have installed the 'pgfplots' " +
+					"package for printing the charts. If you have installed also the coffee4 " +
+					"package you can produce a nice coffee stain (enable the check and " +
+					"compile twice too see the stain)"
+				]
 			}
 		} // columnlayout
 
