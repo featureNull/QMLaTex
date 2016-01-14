@@ -136,10 +136,11 @@ Item {
 					"This is a simple Latex document.",
 
 					"In this document data is retrievied from C++ models."+
-					"Your Latex installation need to have installed the 'pgfplots' " +
-					"package for printing the charts. If you have installed also the coffee4 " +
-					"package you can produce a nice coffee stain (enable the check and " +
-					"compile twice too see the stain)"
+					"Your Latex installation need to have installed the packages " +
+					"'pgf', 'pgfplots', 'ms', 'xcolor' and 'mptopdf' " +
+					"for printing the charts. If you have installed also the coffee4 " +
+					"package (http://hanno-rein.de/archives/349) you can produce a nice " +
+					" coffee stain (enable the check and compile twice too see the stain)"
 				]
 			}
 		} // columnlayout
